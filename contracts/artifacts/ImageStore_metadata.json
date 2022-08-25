@@ -1,0 +1,117 @@
+{
+	"compiler": {
+		"version": "0.4.26+commit.4563c3fc"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"name": "_hash",
+						"type": "bytes32"
+					}
+				],
+				"name": "getImage",
+				"outputs": [
+					{
+						"name": "",
+						"type": "address"
+					},
+					{
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"name": "",
+						"type": "bytes32"
+					},
+					{
+						"name": "",
+						"type": "string"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"name": "images",
+				"outputs": [
+					{
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"name": "dateAdded",
+						"type": "uint256"
+					},
+					{
+						"name": "hash",
+						"type": "bytes32"
+					},
+					{
+						"name": "sourceURL",
+						"type": "string"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"name": "_hash",
+						"type": "bytes32"
+					},
+					{
+						"name": "_sourceURL",
+						"type": "string"
+					}
+				],
+				"name": "storeImage",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"methods": {}
+		},
+		"userdoc": {
+			"methods": {}
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/1_Storage.sol": "ImageStore"
+		},
+		"evmVersion": "byzantium",
+		"libraries": {},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/1_Storage.sol": {
+			"keccak256": "0x20eabccf4db089d8b8369c9abdd107e0c912578f6a995fa11cf9be7a9252ae3d",
+			"urls": [
+				"bzzr://d2a8f8423d35187a7f295b53d170cb42561f411e614a54a70e368014a94a2987"
+			]
+		}
+	},
+	"version": 1
+}
