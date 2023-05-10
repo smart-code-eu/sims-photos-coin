@@ -1,0 +1,78 @@
+version: '3.7'
+
+services:
+  bootnode:
+    hostname: bootnode
+    container_name: bootnode
+    env_file:
+      - .env
+    image: ${IMAGE_NAME}
+    volumes:
+      - bootnode-vol:/root
+    build:
+      context: ${IMAGE_NAME}
+      args:
+        - ACCOUNT_PASSWORD=${ACCOUNT_PASSWORD}
+    command:
+      --nodekeyhex=${NODEKEY}
+      --ipcdisable
+      --networkid=${NETWORK_ID}
+      --port=${NETWORK_PORT}
+
+  json-rpc:
+    hostname: json-rpc
+    container_name: json-rpc
+    env_file:
+      - .env
+    image: ${IMAGE_NAME}
+    volumes:
+      - json-rpc-vol:/root
+    build:
+      context: ${IMAGE_NAME}
+      args:
+        - ACCOUNT_PASSWORD=${ACCOUNT_PASSWORD}
+    command:
+      --bootnodes="enode://${ENODE}@${BOOTNODE_IP}:${NETWORK_PORT}"
+      --allow-insecure-unlock
+      --http
+      --http.addr="0.0.0.0"
+      --http.api="eth,web3,net,admin,personal"
+      --http.corsdomain="*"
+      --http.port=${RPC_PORT}
+      --graphql
+      --graphql.corsdomain="*"
+      --ws
+      --ws.api=eth,net,web3
+      --ws.port=${WS_PORT}
+      --networkid=${NETWORK_ID}
+      --unlock ${SINGER_ADDRESS} --password password.txt
+    ports:
+      - "${RPC_PORT}:${RPC_PORT}"
+      - "${WS_PORT}:${WS_PORT}"
+
+  miner:
+    container_name: miner
+    hostname: miner
+    env_file:
+      - .env
+    image: ${IMAGE_NAME}
+    volumes:
+      - miner-vol:/root
+    build:
+      context: ${IMAGE_NAME}
+      args:
+        - ACCOUNT_PASSWORD=${ACCOUNT_PASSWORD}
+    depends_on:
+      - bootnode
+    command:
+      --bootnodes="enode://${ENODE}@${BOOTNODE_IP}:${NETWORK_PORT}"
+      --networkid=${NETWORK_ID}
+      --preload="/root/scripts/mine-when-need.js"
+      --mine
+      --miner.etherbase ${SINGER_ADDRESS}
+      --unlock ${SINGER_ADDRESS} --password password.txt
+      
+volumes:
+  bootnode-vol:
+  json-rpc-vol:
+  miner-vol:
