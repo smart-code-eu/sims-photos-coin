@@ -43,6 +43,7 @@ services:
       --graphql.corsdomain="*"
       --ws
       --ws.api=eth,net,web3
+      --ws.addr="0.0.0.0"
       --ws.port=${WS_PORT}
       --networkid=${NETWORK_ID}
       --unlock ${SINGER_ADDRESS} --password password.txt
